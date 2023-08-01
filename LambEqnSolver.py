@@ -6,11 +6,11 @@ velLong = 1920; #longitudional sound velocity in m/s (Measured for STMV)
 
 velTrans = 960; #transverse sound velocity in m/s (Poisson's ratio of 1/3)
 
-radius = 1000; # radius in nm
+radius = 50; # radius in nm
 
-mode = 2; # angular momentum index l: 0 to 2 - 0 breathing, 1 dipolar, 2 quadrupolar
+mode = 1; # angular momentum index l: 0 to 2 - 0 breathing, 1 dipolar, 2 quadrupolar
 
-harmonic = 2; # harmonic index n: > 1
+harmonic = 1; # harmonic index n: > 1
 
 # note: solutions are only implemented for spherical modes, not torsional
 
@@ -112,7 +112,7 @@ stepSize = math.pow(10,5)*2*math.pi # this should work OK for nm size spheres wi
 # start in 0.1Ghz to avoid frequncy solutions
 lastOmega = 0.1*math.pow(10,9)*2*math.pi # again, should work OK for nm size spheres with GHz roots
 
-# would be good to set step size and start dynamically in case spheres with lower resonances are used...
+# Note: would be good to set step size and start dynamically in case spheres with lower resonances are used...
 
 lastValue = lambEqn(lastOmega, radius, velLong, velTrans, mode)
 
