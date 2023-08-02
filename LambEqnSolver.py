@@ -8,9 +8,9 @@ velTrans = 960; #transverse sound velocity in m/s (Poisson's ratio of 1/3)
 
 radius = 50; # radius in nm
 
-mode = 2; # angular momentum index l: 0 to 2 - 0 breathing, 1 dipolar, 2 quadrupolar
+mode = 1; # angular momentum index l: > 0 - 0 breathing, 1 dipolar, 2 quadrupolar, ...
 
-harmonic = 50; # harmonic index n: > 1
+harmonic = 2; # harmonic index n: > 1
 
 # note: solutions are only implemented for spherical modes, not torsional
 
@@ -44,8 +44,9 @@ def lambEqn(omega, radius, velLong, velTrans, mode):
     j_eta_l = special.spherical_jn(mode,eta,derivative=False)
     j_eta_lp1 = special.spherical_jn(mode+1,eta,derivative=False)
 
+    """
     # implements equations in Yang, SC. et al. Sci Rep 5, 18030 (2016). https://doi.org/10.1038/srep18030
-
+        
     match mode:
         case 0:
             # breathing - Eqn 2 supplemental
@@ -62,6 +63,14 @@ def lambEqn(omega, radius, velLong, velTrans, mode):
 
         case _:
             raise Exception("Solutions only implemented for modes <= 2")
+    """
+    
+    if mode == 0:
+        result = 4*math.pow(velTrans,2)*j_xi_lp1/(math.pow(velLong,2)*xi)-j_xi_l
+    else:
+        # adjusted to solve original equation for all modes >= 1
+        result = 4*(math.pow(eta,2)*j_eta_l+(mode-1)*(mode+2)*(j_eta_lp1*eta-(mode+1)*j_eta_l))*j_xi_lp1*xi \
+                    +((-math.pow(eta,4)+2*(mode-1)*(2*mode+1)*math.pow(eta,2))*j_eta_l +2*(math.pow(eta,2)-2*mode*(mode-1)*(mode+2))*j_eta_lp1*eta)*j_xi_l
             
     return result
 
