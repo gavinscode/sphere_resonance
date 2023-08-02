@@ -10,7 +10,7 @@ radius = 50; # radius in nm
 
 mode = 1; # angular momentum index l: > 0 - 0 breathing, 1 dipolar, 2 quadrupolar, ...
 
-harmonic = 2; # harmonic index n: > 1
+harmonic = 1; # harmonic index n: > 1
 
 # note: solutions are only implemented for spherical modes, not torsional
 
