@@ -46,7 +46,7 @@ def lambEqn(omega, radius, velLong, velTrans, mode):
 
     """
     # implements equations in Yang, SC. et al. Sci Rep 5, 18030 (2016). https://doi.org/10.1038/srep18030
-        
+    # adjusted to remove divisions by Bessel functions    
     match mode:
         case 0:
             # breathing - Eqn 2 supplemental
@@ -68,7 +68,7 @@ def lambEqn(omega, radius, velLong, velTrans, mode):
     if mode == 0:
         result = 4*math.pow(velTrans,2)*j_xi_lp1/(math.pow(velLong,2)*xi)-j_xi_l
     else:
-        # adjusted to solve original equation for all modes >= 1
+        # adjusted to solve eigenvalue equation (without Bessel function division) for all modes >= 1
         result = 4*(math.pow(eta,2)*j_eta_l+(mode-1)*(mode+2)*(j_eta_lp1*eta-(mode+1)*j_eta_l))*j_xi_lp1*xi \
                     +((-math.pow(eta,4)+2*(mode-1)*(2*mode+1)*math.pow(eta,2))*j_eta_l +2*(math.pow(eta,2)-2*mode*(mode-1)*(mode+2))*j_eta_lp1*eta)*j_xi_l
             
